@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const whitelist = {
-  "123456": "CODE1",
+  "7733969706": "CODE1",
   "654321": "CODE2"
 };
 
