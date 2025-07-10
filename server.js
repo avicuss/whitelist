@@ -11,18 +11,9 @@ const allowedGameIds = [
 ];
 
 app.post("/check-game", (req, res) => {
-  const gameId = req.body.gameId;
-
-  if (typeof gameId !== "number") {
-    return res.status(400).send("Missing or invalid gameId");
-  }
-
-  if (allowedGameIds.includes(gameId)) {
-    res.set("Content-Type", "text/plain");
-    return res.send('print("hello")');
-  } else {
-    return res.status(403).send("Forbidden");
-  }
+  console.log("Received POST with body:", req.body);
+  res.set("Content-Type", "text/plain");
+  res.send('print("server reached")');
 });
 
 const PORT = process.env.PORT || 3000;
