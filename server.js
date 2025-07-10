@@ -1,23 +1,31 @@
 const express = require("express");
 const app = express();
 
-const whitelist = {
-  "7733969706": "CODE1",
-  "654321": "CODE2"
-};
+app.use(express.json()); // to parse JSON bodies
 
-app.get("/whitelist", (req, res) => {
-  const placeId = req.query.placeId;
-  if (!placeId) return res.status(400).json({ error: "Missing placeId" });
+// Replace with your actual whitelisted game IDs
+const allowedGameIds = [
+  123456789, // example gameId #1
+  987654321, // example gameId #2
+  // add your game IDs here
+];
 
-  if (whitelist[placeId]) {
-    res.json({ code: whitelist[placeId] });
+app.post("/check-game", (req, res) => {
+  const gameId = req.body.gameId;
+
+  if (typeof gameId !== "number") {
+    return res.status(400).send("Missing or invalid gameId");
+  }
+
+  if (allowedGameIds.includes(gameId)) {
+    res.set("Content-Type", "text/plain");
+    return res.send('print("hello")');
   } else {
-    res.status(404).json({ error: "Not whitelisted" });
+    return res.status(403).send("Forbidden");
   }
 });
 
-app.get("/health", (req, res) => res.send("OK"));
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server running on port ${port}`));  
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Whitelist server listening on port ${PORT}`);
+});
