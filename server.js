@@ -5,7 +5,7 @@ app.use(express.json()); // to parse JSON bodies
 
 // Replace with your actual whitelisted game IDs
 const allowedGameIds = [
-  7733969706, // example gameId #1
+  98072746775548, // example gameId #1
   987654321, // example gameId #2
   // add your game IDs here
 ];
